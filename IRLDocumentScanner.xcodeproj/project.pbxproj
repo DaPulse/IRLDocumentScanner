@@ -67,6 +67,8 @@
 			children = (
 				8287E6F11FD01398005B4668 /* IRLScannerViewController.h */,
 				8287E6F21FD01398005B4668 /* IRLScannerViewController.m */,
+				8287E6F51FD01398005B4668 /* IRLCameraView.h */,
+				8287E6F91FD01398005B4668 /* IRLCameraView.m */,
 			);
 			path = Public;
 			sourceTree = "<group>";
@@ -75,11 +77,9 @@
 			isa = PBXGroup;
 			children = (
 				8287E6F41FD01398005B4668 /* CIRectangleFeature+Utilities.h */,
-				8287E6F51FD01398005B4668 /* IRLCameraView.h */,
 				8287E6F61FD01398005B4668 /* CIImage+Utilities.m */,
 				8287E6F71FD01398005B4668 /* CIRectangleFeature+Utilities.m */,
 				8287E6F81FD01398005B4668 /* CIImage+Utilities.h */,
-				8287E6F91FD01398005B4668 /* IRLCameraView.m */,
 			);
 			path = Private;
 			sourceTree = "<group>";
