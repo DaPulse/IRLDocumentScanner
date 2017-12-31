@@ -20,4 +20,5 @@ FOUNDATION_EXPORT const unsigned char IRLDocumentScannerVersionString[];
 
 @import TOCropViewController;
 #import "IRLDocumentScanner.h"
+#import "IRLCameraView.h"
 
