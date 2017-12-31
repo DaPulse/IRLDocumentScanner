@@ -61,6 +61,11 @@
 - (UIImage* _Nullable)latestCorrectedUIImage;
 
 /**
+ @return the latest detected rectangle if such exist
+ */
+- (CGRect)latestDetectedRectangle;
+
+/**
  @return enableBorderDetection Auto detect border
  */
 @property (nonatomic,assign,    getter=isBorderDetectionEnabled)    BOOL enableBorderDetection;
