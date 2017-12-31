@@ -10,8 +10,6 @@
 
 @interface IRLScannerViewController () <IRLCameraViewProtocol, TOCropViewControllerDelegate>
 
-@property (weak)                        id<IRLScannerViewControllerDelegate> camera_PrivateDelegate;
-
 @property (weak, nonatomic, readwrite)  IBOutlet UIButton       *flash_toggle;
 @property (weak, nonatomic, readwrite)  IBOutlet UIButton       *contrast_type;
 @property (weak, nonatomic, readwrite)  IBOutlet UIButton       *detect_toggle;
@@ -57,7 +55,7 @@
     IRLScannerViewController*    cameraView = [storyboard instantiateViewControllerWithIdentifier:@"CameraVC"];
     cameraView.cameraViewType = type;
     cameraView.detectorType = detector;
-    cameraView.camera_PrivateDelegate = delegate;
+    cameraView.cameraDelegate = delegate;
     cameraView.showControls = YES;
     cameraView.detectionOverlayColor = [UIColor redColor];
     return cameraView;
@@ -66,8 +64,8 @@
 #pragma mark - Button delegates
 
 -(IBAction)cancelTapped:(id)sender{
-    if (self.camera_PrivateDelegate){
-        [self.camera_PrivateDelegate didCancelIRLScannerViewController:self];
+    if (self.cameraDelegate){
+        [self.cameraDelegate didCancelIRLScannerViewController:self];
     }
 }
 
@@ -195,13 +193,13 @@
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
-    if ([self.camera_PrivateDelegate respondsToSelector:@selector(cameraViewCancelRequested:)]) {
-        [self.camera_PrivateDelegate cameraViewCancelRequested:self];
+    if ([self.cameraDelegate respondsToSelector:@selector(cameraViewCancelRequested:)]) {
+        [self.cameraDelegate cameraViewCancelRequested:self];
     }
 #pragma clang diagnostic pop
 
-    if ([self.camera_PrivateDelegate respondsToSelector:@selector(didCancelIRLScannerViewController:)]) {
-        [self.camera_PrivateDelegate didCancelIRLScannerViewController:self];
+    if ([self.cameraDelegate respondsToSelector:@selector(didCancelIRLScannerViewController:)]) {
+        [self.cameraDelegate didCancelIRLScannerViewController:self];
     }
 }
 
@@ -247,8 +245,8 @@
     }
 
     // Update Text
-    if (!text && [self.camera_PrivateDelegate respondsToSelector:@selector(cameraViewWillUpdateTitleLabel:)]) {
-        text = [self.camera_PrivateDelegate cameraViewWillUpdateTitleLabel:self];
+    if (!text && [self.cameraDelegate respondsToSelector:@selector(cameraViewWillUpdateTitleLabel:)]) {
+        text = [self.cameraDelegate cameraViewWillUpdateTitleLabel:self];
     }
     
     if (text.length == 0 || !text) {
@@ -331,9 +329,9 @@
         [self.cameraView captureImageWithCompletionHander:^(id data) {
             UIImage *image = ([data isKindOfClass:[NSData class]]) ? [UIImage imageWithData:data] : data;
             
-            if (self.camera_PrivateDelegate){
+            if (self.cameraDelegate){
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.01 *NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-                    [self.camera_PrivateDelegate pageSnapped:image from:self];
+                    [self.cameraDelegate pageSnapped:image from:self];
                 });
             }
         }];
@@ -346,7 +344,7 @@
 
 - (void)cropViewController:(TOCropViewController *)cropViewController didCropToImage:(UIImage *)image withRect:(CGRect)cropRect angle:(NSInteger)angle {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1 *NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-        [self.camera_PrivateDelegate pageSnapped:image from:self];
+        [self.cameraDelegate pageSnapped:image from:self];
         [self dismissViewControllerAnimated:YES completion:nil];
     });
 }

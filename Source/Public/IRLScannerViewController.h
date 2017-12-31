@@ -226,6 +226,8 @@ NS_CLASS_AVAILABLE(NA, 8_0)
  */
 - (IBAction)cancelTapped:(id _Nullable )sender;
 
+@property (weak) id<IRLScannerViewControllerDelegate> _Nullable cameraDelegate;
+
 /**
 @brief <Deprecated> This property was introduce by mistake and is not use in the project.
 */
