@@ -41,7 +41,6 @@
 @property (nonatomic, strong)       CIImage*                        gradient;
 
 @property (nonatomic, strong)       CIImage*                        latestCorrectedImage;
-@property (nonatomic, assign)       CGRect                          latestDetectedRectangle;
 @property (nonatomic, readwrite)    NSUInteger                      maximumConfidenceForFullDetection;  // Default 100
 @property (readwrite, strong)       UIImageView* transitionSnapsot;
 
@@ -604,9 +603,8 @@ CGImagePropertyOrientation imagePropertyOrientationForUIImageOrientation(UIImage
         confidence = confidence > 100 ? 100 : confidence;
         
         // Fix the last rectangle detected
-        if (_borderDetectFrame && confidence < self.minimumConfidenceForFullDetection) {
+        if (_borderDetectFrame) {
             _borderDetectLastRectangleFeature = [CIRectangleFeature biggestRectangleInRectangles:(NSArray<CIRectangleFeature*>*)[[self detector] featuresInImage:image]];
-            _latestDetectedRectangle = _borderDetectLastRectangleFeature.bounds;
             _borderDetectFrame = NO;
         }
         
