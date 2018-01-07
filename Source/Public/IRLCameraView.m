@@ -246,7 +246,7 @@ CGImagePropertyOrientation imagePropertyOrientationForUIImageOrientation(UIImage
     
     // Add Input capabilities
     AVCaptureDeviceInput* input     = [AVCaptureDeviceInput deviceInputWithDevice:device error:&error];
-    session.sessionPreset           = AVCaptureSessionPresetPhoto;
+    session.sessionPreset           = AVCaptureSessionPresetHigh;
     [session addInput:input];
     
     // Add Video Sample Buffer Output
